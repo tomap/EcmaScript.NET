@@ -397,7 +397,6 @@ namespace EcmaScript.NET
                                         }
                                         addToString(c);
                                         break;
-                                        break;
 
                                 }
                             }

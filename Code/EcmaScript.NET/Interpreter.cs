@@ -2758,8 +2758,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.IN;
-
+                                    
                                 case Token.IN:
                                 case Token.INSTANCEOF: {
                                         object rhs = stack [stackTop];
@@ -2780,8 +2779,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.EQ;
-
+                                    
                                 case Token.EQ:
                                 case Token.NE: {
                                         --stackTop;
@@ -2920,8 +2918,7 @@ namespace EcmaScript.NET
                                     }
 
                                     goto Loop;
-                                    goto case Icode_RETSUB;
-
+                                    
                                 case Icode_RETSUB: {
                                         // indexReg: local to store return address
                                         if (instructionCounting) {
@@ -2942,15 +2939,13 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_POP;
-
+                                    
                                 case Icode_POP:
                                     stack [stackTop] = null;
                                     stackTop--;
 
                                     goto Loop;
-                                    goto case Icode_POP_RESULT;
-
+                                    
                                 case Icode_POP_RESULT:
                                     frame.result = stack [stackTop];
                                     frame.resultDbl = sDbl [stackTop];
@@ -2958,8 +2953,7 @@ namespace EcmaScript.NET
                                     --stackTop;
 
                                     goto Loop;
-                                    goto case Icode_DUP;
-
+                                    
                                 case Icode_DUP:
                                     stack [stackTop + 1] = stack [stackTop];
                                     sDbl [stackTop + 1] = sDbl [stackTop];
@@ -3680,8 +3674,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_ZERO;
-
+                                    
                                 case Icode_ZERO:
                                     ++stackTop;
                                     stack [stackTop] = DBL_MRK;
@@ -3696,32 +3689,27 @@ namespace EcmaScript.NET
                                     sDbl [stackTop] = 1;
 
                                     goto Loop;
-                                    goto case Token.NULL;
-
+                                    
                                 case Token.NULL:
                                     stack [++stackTop] = null;
 
                                     goto Loop;
-                                    goto case Token.THIS;
-
+                                    
                                 case Token.THIS:
                                     stack [++stackTop] = frame.thisObj;
 
                                     goto Loop;
-                                    goto case Token.THISFN;
-
+                                    
                                 case Token.THISFN:
                                     stack [++stackTop] = frame.fnOrScript;
 
                                     goto Loop;
-                                    goto case Token.FALSE;
-
+                                    
                                 case Token.FALSE:
                                     stack [++stackTop] = false;
 
                                     goto Loop;
-                                    goto case Token.TRUE;
-
+                                    
                                 case Token.TRUE:
                                     stack [++stackTop] = true;
 
@@ -3743,14 +3731,12 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.LEAVEWITH;
-
+                                    
                                 case Token.LEAVEWITH:
                                     frame.scope = ScriptRuntime.leaveWith (frame.scope);
 
                                     goto Loop;
-                                    goto case Token.CATCH_SCOPE;
-
+                                    
                                 case Token.CATCH_SCOPE: {
                                         // stack top: exception object
                                         // stringReg: name of exception variable
@@ -3773,8 +3759,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.ENUM_INIT_KEYS;
-
+                                    
                                 case Token.ENUM_INIT_KEYS:
                                 case Token.ENUM_INIT_VALUES: {
                                         object lhs = stack [stackTop];
@@ -3793,8 +3778,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.ENUM_NEXT;
-
+                                    
                                 case Token.ENUM_NEXT:
                                 case Token.ENUM_ID: {
                                         indexReg += frame.localShift;
@@ -3804,8 +3788,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.REF_SPECIAL;
-
+                                    
                                 case Token.REF_SPECIAL: {
                                         //stringReg: name of special property
                                         object obj = stack [stackTop];
@@ -3815,8 +3798,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.REF_MEMBER;
-
+                                    
                                 case Token.REF_MEMBER: {
                                         //indexReg: flags
                                         object elem = stack [stackTop];
@@ -3830,8 +3812,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.REF_NS_MEMBER;
-
+                                    
                                 case Token.REF_NS_MEMBER: {
                                         //indexReg: flags
                                         object elem = stack [stackTop];
@@ -3849,8 +3830,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.REF_NAME;
-
+                                    
                                 case Token.REF_NAME: {
                                         //indexReg: flags
                                         object name = stack [stackTop];
@@ -3860,8 +3840,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.REF_NS_NAME;
-
+                                    
                                 case Token.REF_NS_NAME: {
                                         //indexReg: flags
                                         object name = stack [stackTop];
@@ -3875,35 +3854,30 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_SCOPE_LOAD;
-
+                                    
                                 case Icode_SCOPE_LOAD:
                                     indexReg += frame.localShift;
                                     frame.scope = (IScriptable)stack [indexReg];
 
                                     goto Loop;
-                                    goto case Icode_SCOPE_SAVE;
-
+                                    
                                 case Icode_SCOPE_SAVE:
                                     indexReg += frame.localShift;
                                     stack [indexReg] = frame.scope;
 
                                     goto Loop;
-                                    goto case Icode_CLOSURE_EXPR;
-
+                                    
                                 case Icode_CLOSURE_EXPR: {
                                         InterpretedFunction fun = InterpretedFunction.createFunction (cx, frame.scope, frame.fnOrScript, indexReg);
                                         stack [++stackTop] = fun;
                                     }
                                     goto Loop;
-                                    goto case Icode_CLOSURE_STMT;
-
+                                    
                                 case Icode_CLOSURE_STMT:
                                     initFunction (cx, frame.scope, frame.fnOrScript, indexReg);
 
                                     goto Loop;
-                                    goto case Token.REGEXP;
-
+                                    
                                 case Token.REGEXP:
                                     stack [++stackTop] = frame.scriptRegExps [indexReg];
 
@@ -3917,8 +3891,7 @@ namespace EcmaScript.NET
                                     sDbl [stackTop] = 0;
 
                                     goto Loop;
-                                    goto case Icode_LITERAL_SET;
-
+                                    
                                 case Icode_LITERAL_SET: {
                                         object value = stack [stackTop];
                                         if (value == DBL_MRK)
@@ -3952,8 +3925,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_ENTERDQ;
-
+                                    
                                 case Icode_ENTERDQ: {
                                         object lhs = stack [stackTop];
                                         if (lhs == DBL_MRK)
@@ -3963,8 +3935,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_LEAVEDQ;
-
+                                    
                                 case Icode_LEAVEDQ: {
                                         bool valBln = stack_boolean (frame, stackTop);
                                         object x = ScriptRuntime.updateDotQuery (valBln, frame.scope);
@@ -3999,8 +3970,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.ESCXMLTEXT;
-
+                                    
                                 case Token.ESCXMLTEXT: {
                                         object value = stack [stackTop];
                                         if (value != DBL_MRK) {
@@ -4009,8 +3979,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_LINE;
-
+                                    
                                 case Icode_DEBUGGER: {
                                         if (frame.debuggerFrame != null) {
                                             frame.debuggerFrame.OnDebuggerStatement(cx);
@@ -4027,109 +3996,92 @@ namespace EcmaScript.NET
                                     frame.pc += 2;
 
                                     goto Loop;
-                                    goto case Icode_REG_IND_C0;
-
+                                    
                                 case Icode_REG_IND_C0:
                                     indexReg = 0;
 
                                     goto Loop;
-                                    goto case Icode_REG_IND_C1;
-
+                                    
                                 case Icode_REG_IND_C1:
                                     indexReg = 1;
 
                                     goto Loop;
-                                    goto case Icode_REG_IND_C2;
-
+                                    
                                 case Icode_REG_IND_C2:
                                     indexReg = 2;
 
                                     goto Loop;
-                                    goto case Icode_REG_IND_C3;
-
+                                    
                                 case Icode_REG_IND_C3:
                                     indexReg = 3;
 
                                     goto Loop;
-                                    goto case Icode_REG_IND_C4;
-
+                                    
                                 case Icode_REG_IND_C4:
                                     indexReg = 4;
 
                                     goto Loop;
-                                    goto case Icode_REG_IND_C5;
-
+                                    
                                 case Icode_REG_IND_C5:
                                     indexReg = 5;
 
                                     goto Loop;
-                                    goto case Icode_REG_IND1;
-
+                                    
                                 case Icode_REG_IND1:
                                     indexReg = 0xFF & iCode [frame.pc];
                                     ++frame.pc;
 
                                     goto Loop;
-                                    goto case Icode_REG_IND2;
-
+                                    
                                 case Icode_REG_IND2:
                                     indexReg = GetIndex (iCode, frame.pc);
                                     frame.pc += 2;
 
                                     goto Loop;
-                                    goto case Icode_REG_IND4;
-
+                                    
                                 case Icode_REG_IND4:
                                     indexReg = GetInt (iCode, frame.pc);
                                     frame.pc += 4;
 
                                     goto Loop;
-                                    goto case Icode_REG_STR_C0;
-
+                                    
                                 case Icode_REG_STR_C0:
                                     stringReg = strings [0];
 
                                     goto Loop;
-                                    goto case Icode_REG_STR_C1;
-
+                                    
                                 case Icode_REG_STR_C1:
                                     stringReg = strings [1];
 
                                     goto Loop;
-                                    goto case Icode_REG_STR_C2;
-
+                                    
                                 case Icode_REG_STR_C2:
                                     stringReg = strings [2];
 
                                     goto Loop;
-                                    goto case Icode_REG_STR_C3;
-
+                                    
                                 case Icode_REG_STR_C3:
                                     stringReg = strings [3];
 
                                     goto Loop;
-                                    goto case Icode_REG_STR1;
-
+                                    
                                 case Icode_REG_STR1:
                                     stringReg = strings [0xFF & iCode [frame.pc]];
                                     ++frame.pc;
 
                                     goto Loop;
-                                    goto case Icode_REG_STR2;
-
+                                    
                                 case Icode_REG_STR2:
                                     stringReg = strings [GetIndex (iCode, frame.pc)];
                                     frame.pc += 2;
 
                                     goto Loop;
-                                    goto case Icode_REG_STR4;
 
                                 case Icode_REG_STR4:
                                     stringReg = strings [GetInt (iCode, frame.pc)];
                                     frame.pc += 4;
 
                                     goto Loop;
-                                    goto default;
 
                                 default:
                                     dumpICode (frame.idata);

@@ -268,7 +268,6 @@ namespace EcmaScript.NET
                     return start.Put (name, start, value);
                 }
             }
-            return value;
         }
 
         /// <summary> Sets the value of the indexed property, creating it if need be.

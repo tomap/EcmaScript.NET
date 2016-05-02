@@ -273,9 +273,7 @@ namespace EcmaScript.NET.Types
                                 so.DefineSetter (name, getterOrSetter);
                             }
                         }
-
                         return Undefined.Value;
-                        break;
                     }
 
                 default:

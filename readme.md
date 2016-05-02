@@ -7,4 +7,4 @@ Here are the main differences:
 * CI with appveyor
 * included changes from :
   * Vladimir Svyatski https://github.com/vsvyatski/EcmaScript.NET
-
+  * James code-for-coffee https://github.com/code-for-coffee/EcmaScript.NET

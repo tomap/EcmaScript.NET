@@ -973,10 +973,10 @@ namespace EcmaScript.NET
                 case Token.TRY:
                     {
                         consumeToken();
-                        int lineno = ts.Lineno;
+                        var lineno = ts.Lineno;
 
                         Node tryblock;
-                        Node catchblocks = null;
+                        Node catchblocks;
                         Node finallyblock = null;
 
                         decompiler.AddToken(Token.TRY);
@@ -1363,7 +1363,6 @@ namespace EcmaScript.NET
                 case Token.ERROR:
                 case Token.EOF:
                 case Token.RC:
-                    // Autoinsert ;
                     break;
 
                 default:

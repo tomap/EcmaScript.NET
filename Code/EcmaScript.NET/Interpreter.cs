@@ -487,13 +487,13 @@ namespace EcmaScript.NET
 
         public virtual IScript CreateScriptObject (object bytecode, object staticSecurityDomain)
         {
-            InterpreterData idata = (InterpreterData)bytecode;
+            var idata = (InterpreterData)bytecode;
             return InterpretedFunction.createScript (itsData, staticSecurityDomain);
         }
 
         public virtual IFunction CreateFunctionObject (Context cx, IScriptable scope, object bytecode, object staticSecurityDomain)
         {
-            InterpreterData idata = (InterpreterData)bytecode;
+            var idata = (InterpreterData)bytecode;
             return InterpretedFunction.createFunction (cx, scope, itsData, staticSecurityDomain);
         }
 
@@ -501,16 +501,16 @@ namespace EcmaScript.NET
         {
             itsInFunctionFlag = true;
 
-            FunctionNode theFunction = (FunctionNode)scriptOrFn;
+            var theFunction = (FunctionNode)scriptOrFn;
 
             itsData.itsFunctionType = theFunction.FunctionType;
             itsData.itsNeedsActivation = theFunction.RequiresActivation;
             itsData.itsName = theFunction.FunctionName;
-            if (!theFunction.IgnoreDynamicScope) {
-                if (compilerEnv.UseDynamicScope) {
-                    itsData.useDynamicScope = true;
-                }
+            if (!theFunction.IgnoreDynamicScope && compilerEnv.UseDynamicScope)
+            {
+                itsData.useDynamicScope = true;
             }
+
 
             generateICodeFromTree (theFunction.LastChild);
         }
@@ -531,7 +531,7 @@ namespace EcmaScript.NET
             if (itsData.itsICode.Length != itsICodeTop) {
                 // Make itsData.itsICode length exactly itsICodeTop to save memory
                 // and catch bugs with jumps beyound icode as early as possible
-                sbyte [] tmp = new sbyte [itsICodeTop];
+                var tmp = new sbyte [itsICodeTop];
                 Array.Copy (itsData.itsICode, 0, tmp, 0, itsICodeTop);
                 itsData.itsICode = tmp;
             }
@@ -717,7 +717,7 @@ namespace EcmaScript.NET
                         for (Node.Jump caseNode = (Node.Jump)child.Next; caseNode != null; caseNode = (Node.Jump)caseNode.Next) {
                             if (caseNode.Type != Token.CASE)
                                 throw badTree (caseNode);
-                            Node test = caseNode.FirstChild;
+                            var test = caseNode.FirstChild;
                             addIcode (Icode_DUP);
                             stackChange (1);
                             VisitExpression (test, 0);
@@ -2104,13 +2104,12 @@ namespace EcmaScript.NET
             if (table != null) {
                 sw.WriteLine ("Exception handlers: " + table.Length / EXCEPTION_SLOT_SIZE);
                 for (int i = 0; i != table.Length; i += EXCEPTION_SLOT_SIZE) {
-                    int tryStart = table [i + EXCEPTION_TRY_START_SLOT];
-                    int tryEnd = table [i + EXCEPTION_TRY_END_SLOT];
-                    int handlerStart = table [i + EXCEPTION_HANDLER_SLOT];
-                    int type = table [i + EXCEPTION_TYPE_SLOT];
-                    int exceptionLocal = table [i + EXCEPTION_LOCAL_SLOT];
-                    int scopeLocal = table [i + EXCEPTION_SCOPE_SLOT];
-
+                    var tryStart = table [i + EXCEPTION_TRY_START_SLOT];
+                    var tryEnd = table [i + EXCEPTION_TRY_END_SLOT];
+                    var handlerStart = table [i + EXCEPTION_HANDLER_SLOT];
+                    var type = table [i + EXCEPTION_TYPE_SLOT];
+                    var exceptionLocal = table [i + EXCEPTION_LOCAL_SLOT];
+                    
                     sw.WriteLine (" tryStart=" + tryStart + " tryEnd=" + tryEnd + " handlerStart=" + handlerStart + " type=" + (type == 0 ? "catch" : "finally") + " exceptionLocal=" + exceptionLocal);
                 }
             }

@@ -174,7 +174,7 @@ namespace EcmaScript.NET.Types
 
         private static IScript compile (Context cx, string source)
         {
-            int [] linep = new int [] { 0 };
+            var linep = new int [] { 0 };
             string filename = Context.GetSourcePositionFromStack (linep);
             if (filename == null) {
                 filename = "<Script object>";

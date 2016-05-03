@@ -319,7 +319,7 @@ namespace EcmaScript.NET.Types
 
 
                 case Id_toSource: {
-                        string s = RealThis (thisObj, f).m_Value;
+                        var s = RealThis (thisObj, f).m_Value;
                         return "(new String(\"" + ScriptRuntime.escapeString (s) + "\"))";
                     }
 
@@ -327,15 +327,15 @@ namespace EcmaScript.NET.Types
                 case Id_charAt:
                 case Id_charCodeAt: {
                         // See ECMA 15.5.4.[4,5]
-                        string target = ScriptConvert.ToString (thisObj);
-                        double pos = ScriptConvert.ToInteger (args, 0);
+                        var target = ScriptConvert.ToString (thisObj);
+                        var pos = ScriptConvert.ToInteger (args, 0);
                         if (pos < 0 || pos >= target.Length) {
                             if (id == Id_charAt)
                                 return "";
                             else
                                 return double.NaN;
                         }
-                        char c = target [(int)pos];
+                        var c = target [(int)pos];
                         if (id == Id_charAt)
                             return Convert.ToString (c);
                         else
@@ -434,8 +434,8 @@ namespace EcmaScript.NET.Types
 
                 case Id_equals:
                 case Id_equalsIgnoreCase: {
-                        string s1 = ScriptConvert.ToString (thisObj);
-                        string s2 = ScriptConvert.ToString (args, 0);
+                        var s1 = ScriptConvert.ToString (thisObj);
+                        var s2 = ScriptConvert.ToString (args, 0);
                         return (id == Id_equals) ? s1.Equals (s2) : s1.ToUpper ().Equals (s2.ToUpper ());
                     }
 
@@ -469,10 +469,14 @@ namespace EcmaScript.NET.Types
         /// <summary>
         /// HTML composition aids.
         /// </summary>
+        /// <param name="thisObj">todo: describe thisObj parameter on Tagify</param>
+        /// <param name="tag">todo: describe tag parameter on Tagify</param>
+        /// <param name="attribute">todo: describe attribute parameter on Tagify</param>
+        /// <param name="args">todo: describe args parameter on Tagify</param>
         private static string Tagify (object thisObj, string tag, string attribute, object [] args)
         {
-            string str = ScriptConvert.ToString (thisObj);
-            System.Text.StringBuilder result = new System.Text.StringBuilder ();
+            var str = ScriptConvert.ToString (thisObj);
+            var result = new System.Text.StringBuilder ();
             result.Append ('<');
             result.Append (tag);
             if (attribute != null) {
@@ -546,8 +550,8 @@ namespace EcmaScript.NET.Types
         */
         private static int js_lastIndexOf (string target, object [] args)
         {
-            string search = ScriptConvert.ToString (args, 0);
-            double end = ScriptConvert.ToNumber (args, 1);
+            var search = ScriptConvert.ToString (args, 0);
+            var end = ScriptConvert.ToNumber (args, 1);
 
             if (double.IsNaN (end) || end > target.Length)
                 end = target.Length;
@@ -763,12 +767,12 @@ namespace EcmaScript.NET.Types
             }
 
             // split target with separator or re
-            int [] ip = new int [] { 0 };
+            var ip = new int [] { 0 };
             int match;
-            int len = 0;
-            bool [] matched = new bool [] { false };
-            string [] [] parens = new string [] [] { null };
-            Context.Versions version = cx.Version;
+            var len = 0;
+            var matched = new bool [] { false };
+            var parens = new string [] [] { null };
+            var version = cx.Version;
             while ((match = find_split (cx, scope, target, separator, version, reProxy, re, ip, matchlen, matched, parens)) >= 0) {
                 if ((limited && len >= limit) || (match > target.Length))
                     break;

@@ -39,8 +39,6 @@ namespace EcmaScript.NET
 
         public const int MAXSTACKSIZE = 1000;
         
-        private const string XML_INIT_CLASS = "EcmaScript.NET.Xml.Impl.XMLLib";
-
         private static readonly object LIBRARY_SCOPE_KEY = new object ();
 
         public static bool IsNativeRuntimeType (Type cl)

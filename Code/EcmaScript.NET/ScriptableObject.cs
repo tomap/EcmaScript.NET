@@ -1274,10 +1274,8 @@ namespace EcmaScript.NET
         /// <summary> The parent scope of this object.</summary>
         private IScriptable parentScopeObject;
 
-        private static readonly object HAS_STATIC_ACCESSORS = typeof (void);
         private static readonly Slot REMOVED = new Slot ();
-
-
+        
         private Slot [] slots;
         // If count >= 0, it gives number of keys or if count < 0,
         // it indicates sealed object where -1 - count gives number of keys

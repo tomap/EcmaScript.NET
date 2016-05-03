@@ -70,21 +70,21 @@ namespace EcmaScript.NET.Types.Cli
             if (m_EventHandlerTypes.Contains (eventHandlerType))
                 return (Type)m_EventHandlerTypes [eventHandlerType];
 
-            MethodInfo mi = eventHandlerType.GetMethod ("Invoke");
+            var mi = eventHandlerType.GetMethod ("Invoke");
 
-            Type [] parameterTypes = CliHelper.GetParameterTypes (mi.GetParameters ());
+            var parameterTypes = CliHelper.GetParameterTypes (mi.GetParameters ());
 
-            AssemblyBuilder ab = AppDomain.CurrentDomain.DefineDynamicAssembly (
+            var ab = AppDomain.CurrentDomain.DefineDynamicAssembly (
                 new AssemblyName ("Dyn_" + eventHandlerType.FullName.Replace (".", "_")), AssemblyBuilderAccess.Run);
-            ModuleBuilder mb = ab.DefineDynamicModule ("DynModule");
-            TypeBuilder tp = mb.DefineType ("DynType", TypeAttributes.Public, typeof (ScriptableCallback));
-            MethodBuilder db = tp.DefineMethod ("DynMethod", MethodAttributes.Public, CallingConventions.Standard,
+            var mb = ab.DefineDynamicModule ("DynModule");
+            var tp = mb.DefineType ("DynType", TypeAttributes.Public, typeof (ScriptableCallback));
+            var db = tp.DefineMethod ("DynMethod", MethodAttributes.Public, CallingConventions.Standard,
                 mi.ReturnType, parameterTypes);
-            ILGenerator ilg = db.GetILGenerator ();
+            var ilg = db.GetILGenerator ();
 
             ilg.DeclareLocal (typeof (object []));
 
-            int len = mi.GetParameters ().Length;
+            var len = mi.GetParameters ().Length;
 
             // 1. Array create
             ilg.Emit (OpCodes.Ldarg_0);

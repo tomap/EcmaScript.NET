@@ -33,9 +33,7 @@ namespace EcmaScript.NET
             try {
                 return Type.GetType (className);
             }
-            catch {
-                ;
-            }
+            catch {}
             return null;
         }
 

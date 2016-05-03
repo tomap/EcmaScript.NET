@@ -1073,7 +1073,7 @@ namespace EcmaScript.NET
                         Node breakStatement = matchJumpLabelName();
                         if (breakStatement == null)
                         {
-                            if (loopAndSwitchSet == null || loopAndSwitchSet.size() == 0)
+                            if (loopAndSwitchSet == null || loopAndSwitchSet.GetSize() == 0)
                             {
                                 ReportError("msg.bad.break");
                                 return null;
@@ -1097,7 +1097,7 @@ namespace EcmaScript.NET
                         Node label = matchJumpLabelName();
                         if (label == null)
                         {
-                            if (loopSet == null || loopSet.size() == 0)
+                            if (loopSet == null || loopSet.GetSize() == 0)
                             {
                                 ReportError("msg.continue.outside");
                                 return null;

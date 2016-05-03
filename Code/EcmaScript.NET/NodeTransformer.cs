@@ -126,7 +126,7 @@ namespace EcmaScript.NET
                                 if (!hasFinally)
                                     break; // skip the whole mess.
                                 Node unwindBlock = null;
-                                for (int i = loops.size () - 1; i >= 0; i--) {
+                                for (int i = loops.GetSize () - 1; i >= 0; i--) {
                                     Node n = (Node)loops.Get (i);
                                     int elemtype = n.Type;
                                     if (elemtype == Token.TRY || elemtype == Token.WITH) {
@@ -176,7 +176,7 @@ namespace EcmaScript.NET
                                 if (jumpStatement == null)
                                     Context.CodeBug ();
 
-                                for (int i = loops.size (); ; ) {
+                                for (int i = loops.GetSize (); ; ) {
                                     if (i == 0) {
                                         // Parser/IRFactory ensure that break/continue
                                         // always has a jump statement associated with it

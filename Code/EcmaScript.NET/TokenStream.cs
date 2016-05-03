@@ -1175,7 +1175,7 @@ namespace EcmaScript.NET
         {
             if (EcmaScript.NET.Token.printTrees)
             {
-                string name = EcmaScript.NET.Token.name(token);
+                string name = EcmaScript.NET.Token.GetName(token);
 
                 switch (token)
                 {

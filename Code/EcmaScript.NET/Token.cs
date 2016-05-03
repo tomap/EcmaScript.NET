@@ -209,7 +209,7 @@ namespace EcmaScript.NET
 
         public const int LAST_TOKEN = LAST_BYTECODE_TOKEN + 79;
 
-        public static string name (int token)
+        public static string GetName (int token)
         {
             //if (!printNames) {
             //    return Convert.ToString (token);

@@ -698,7 +698,7 @@ namespace EcmaScript.NET
         private void toString (ObjToIntMap printIds, System.Text.StringBuilder sb)
         {
             if (Token.printTrees) {
-                sb.Append (Token.name (this.Type));
+                sb.Append (Token.GetName (this.Type));
                 if (this is StringNode) {
                     sb.Append (' ');
                     sb.Append (String);
@@ -826,7 +826,7 @@ namespace EcmaScript.NET
                             break;
 
                         default:
-                            object obj = x.objectValue;
+                            var obj = x.objectValue;
                             if (obj != null) {
                                 value = obj.ToString ();
                             }

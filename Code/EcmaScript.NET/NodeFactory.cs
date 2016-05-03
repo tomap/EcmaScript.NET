@@ -688,7 +688,7 @@ namespace EcmaScript.NET
 
         internal Node CreateArrayLiteral (ObjArray elems, int skipCount)
         {
-            int length = elems.size ();
+            int length = elems.GetSize ();
             int [] skipIndexes = null;
             if (skipCount != 0) {
                 skipIndexes = new int [skipCount];
@@ -717,7 +717,7 @@ namespace EcmaScript.NET
         /// </summary>
         internal Node CreateObjectLiteral (ObjArray elems)
         {
-            int size = elems.size () / 2;
+            int size = elems.GetSize () / 2;
             Node obj = new Node (Token.OBJECTLIT);
             object [] properties;
             if (size == 0) {

@@ -262,7 +262,7 @@ namespace EcmaScript.NET
             }
 
             if (ValidTokenCode (bytecode)) {
-                return Token.name (bytecode);
+                return Token.GetName (bytecode);
             }
 
             switch (bytecode) {
@@ -574,7 +574,7 @@ namespace EcmaScript.NET
             itsData.encodedSourceStart = scriptOrFn.EncodedSourceStart;
             itsData.encodedSourceEnd = scriptOrFn.EncodedSourceEnd;
 
-            if (itsLiteralIds.size () != 0) {
+            if (itsLiteralIds.GetSize () != 0) {
                 itsData.literalIds = itsLiteralIds.ToArray ();
             }
 
@@ -1491,13 +1491,13 @@ namespace EcmaScript.NET
                     addToken (Token.ARRAYLIT);
                 }
                 else {
-                    int index = itsLiteralIds.size ();
+                    int index = itsLiteralIds.GetSize ();
                     itsLiteralIds.add (skipIndexes);
                     addIndexOp (Icode_SPARE_ARRAYLIT, index);
                 }
             }
             else {
-                int index = itsLiteralIds.size ();
+                int index = itsLiteralIds.GetSize ();
                 itsLiteralIds.add (propertyIds);
                 addIndexOp (Token.OBJECTLIT, index);
             }
@@ -2246,11 +2246,11 @@ namespace EcmaScript.NET
             }
             // has interpreter frame on the stack
             CallFrame [] array;
-            if (cx.previousInterpreterInvocations == null || cx.previousInterpreterInvocations.size () == 0) {
+            if (cx.previousInterpreterInvocations == null || cx.previousInterpreterInvocations.GetSize () == 0) {
                 array = new CallFrame [1];
             }
             else {
-                int previousCount = cx.previousInterpreterInvocations.size ();
+                int previousCount = cx.previousInterpreterInvocations.GetSize ();
                 if (cx.previousInterpreterInvocations.peek () == cx.lastInterpreterFrame) {
                     // It can happen if exception was generated after
                     // frame was pushed to cx.previousInterpreterInvocations
@@ -2982,8 +2982,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.RETURN;
-
+                                    
                                 case Token.RETURN:
                                     frame.result = stack [stackTop];
                                     frame.resultDbl = sDbl [stackTop];
@@ -3007,8 +3006,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.BITAND;
-
+                                    
                                 case Token.BITAND:
                                 case Token.BITOR:
                                 case Token.BITXOR:
@@ -3044,8 +3042,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.URSH;
-
+                                    
                                 case Token.URSH: {
                                         int rIntValue = stack_int32 (frame, stackTop) & 0x1F;
                                         --stackTop;
@@ -3056,8 +3053,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.NEG;
-
+                                    
                                 case Token.NEG:
                                 case Token.POS: {
                                         double rDbl = stack_double (frame, stackTop);
@@ -3069,15 +3065,13 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.ADD;
-
+                                    
                                 case Token.ADD:
                                     --stackTop;
                                     DoAdd (stack, sDbl, stackTop, cx);
 
                                     goto Loop;
-                                    goto case Token.SUB;
-
+                                    
                                 case Token.SUB:
                                 case Token.MUL:
                                 case Token.DIV:
@@ -3114,14 +3108,12 @@ namespace EcmaScript.NET
                                     stack [stackTop] = !stack_boolean (frame, stackTop);
 
                                     goto Loop;
-                                    goto case Token.BINDNAME;
-
+                                    
                                 case Token.BINDNAME:
                                     stack [++stackTop] = ScriptRuntime.bind (cx, frame.scope, stringReg);
 
                                     goto Loop;
-                                    goto case Token.SETNAME;
-
+                                    
                                 case Token.SETNAME: {
                                         object rhs = stack [stackTop];
                                         if (rhs == DBL_MRK)
@@ -3132,8 +3124,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.DELPROP;
-
+                                    
                                 case Token.DELPROP: {
                                         object rhs = stack [stackTop];
                                         if (rhs == DBL_MRK)
@@ -3146,8 +3137,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.GETPROP;
-
+                                    
                                 case Token.GETPROP: {
                                         object lhs = stack [stackTop];
                                         if (lhs == DBL_MRK)
@@ -3188,8 +3178,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_PROP_INC_DEC;
-
+                                    
                                 case Icode_PROP_INC_DEC: {
                                         object lhs = stack [stackTop];
                                         if (lhs == DBL_MRK)
@@ -3199,8 +3188,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.GETELEM;
-
+                                    
                                 case Token.GETELEM: {
                                         --stackTop;
                                         object lhs = stack [stackTop];
@@ -3220,8 +3208,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.SETELEM;
-
+                                    
                                 case Token.SETELEM: {
                                         stackTop -= 2;
                                         object rhs = stack [stackTop + 2];
@@ -3260,16 +3247,14 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.GET_REF;
-
+                                    
                                 case Token.GET_REF: {
                                         IRef rf = (IRef)stack [stackTop];
                                         stack [stackTop] = ScriptRuntime.refGet (rf, cx);
 
                                         goto Loop;
                                     }
-                                    goto case Token.SET_REF;
-
+                                    
                                 case Token.SET_REF: {
                                         object value = stack [stackTop];
                                         if (value == DBL_MRK)
@@ -3280,16 +3265,14 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.DEL_REF;
-
+                                    
                                 case Token.DEL_REF: {
                                         IRef rf = (IRef)stack [stackTop];
                                         stack [stackTop] = ScriptRuntime.refDel (rf, cx);
 
                                         goto Loop;
                                     }
-                                    goto case Icode_REF_INC_DEC;
-
+                                    
                                 case Icode_REF_INC_DEC: {
                                         IRef rf = (IRef)stack [stackTop];
                                         stack [stackTop] = ScriptRuntime.refIncrDecr (rf, cx, iCode [frame.pc]);
@@ -3297,8 +3280,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.LOCAL_LOAD;
-
+                                    
                                 case Token.LOCAL_LOAD:
                                     ++stackTop;
                                     indexReg += frame.localShift;
@@ -3306,15 +3288,13 @@ namespace EcmaScript.NET
                                     sDbl [stackTop] = sDbl [indexReg];
 
                                     goto Loop;
-                                    goto case Icode_LOCAL_CLEAR;
-
+                                    
                                 case Icode_LOCAL_CLEAR:
                                     indexReg += frame.localShift;
                                     stack [indexReg] = null;
 
                                     goto Loop;
-                                    goto case Icode_NAME_AND_THIS;
-
+                                    
                                 case Icode_NAME_AND_THIS:
                                     // stringReg: name
                                     ++stackTop;
@@ -3323,8 +3303,7 @@ namespace EcmaScript.NET
                                     stack [stackTop] = ScriptRuntime.lastStoredScriptable (cx);
 
                                     goto Loop;
-                                    goto case Icode_PROP_AND_THIS;
-
+                                    
                                 case Icode_PROP_AND_THIS: {                                        
                                         object obj = stack [stackTop];                                        
                                         if (obj == DBL_MRK)
@@ -3336,8 +3315,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_ELEM_AND_THIS;
-
+                                    
                                 case Icode_ELEM_AND_THIS: {
                                         object obj = stack [stackTop - 1];
                                         if (obj == DBL_MRK)
@@ -3350,8 +3328,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_VALUE_AND_THIS;
-
+                                    
                                 case Icode_VALUE_AND_THIS: {
                                         object value = stack [stackTop];
                                         if (value == DBL_MRK)
@@ -3362,8 +3339,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_CALLSPECIAL;
-
+                                    
                                 case Icode_CALLSPECIAL: {
                                         if (instructionCounting) {
                                             cx.instructionCount += INVOCATION_COST;
@@ -3398,8 +3374,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.CALL;
-
+                                    
                                 case Token.CALL:
                                 case Icode_TAIL_CALL:
                                 case Token.REF_CALL: {
@@ -3497,8 +3472,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.NEW;
-
+                                    
                                 case Token.NEW: {
                                         if (instructionCounting) {
                                             cx.instructionCount += INVOCATION_COST;
@@ -3544,8 +3518,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.TYPEOF;
-
+                                    
                                 case Token.TYPEOF: {
                                         object lhs = stack [stackTop];
                                         if (lhs == DBL_MRK)
@@ -3554,20 +3527,17 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Icode_TYPEOFNAME;
-
+                                    
                                 case Icode_TYPEOFNAME:
                                     stack [++stackTop] = ScriptRuntime.TypeofName (frame.scope, stringReg);
 
                                     goto Loop;
-                                    goto case Token.STRING;
-
+                                    
                                 case Token.STRING:
                                     stack [++stackTop] = stringReg;
 
                                     goto Loop;
-                                    goto case Icode_SHORTNUMBER;
-
+                                    
                                 case Icode_SHORTNUMBER:
                                     ++stackTop;
                                     stack [stackTop] = DBL_MRK;
@@ -3575,8 +3545,7 @@ namespace EcmaScript.NET
                                     frame.pc += 2;
 
                                     goto Loop;
-                                    goto case Icode_INTNUMBER;
-
+                                    
                                 case Icode_INTNUMBER:
                                     ++stackTop;
                                     stack [stackTop] = DBL_MRK;
@@ -3584,29 +3553,25 @@ namespace EcmaScript.NET
                                     frame.pc += 4;
 
                                     goto Loop;
-                                    goto case Token.NUMBER;
-
+                                    
                                 case Token.NUMBER:
                                     ++stackTop;
                                     stack [stackTop] = DBL_MRK;
                                     sDbl [stackTop] = frame.idata.itsDoubleTable [indexReg];
 
                                     goto Loop;
-                                    goto case Token.NAME;
-
+                                    
                                 case Token.NAME:
                                     stack [++stackTop] = ScriptRuntime.name (cx, frame.scope, stringReg);
 
                                     goto Loop;
-                                    goto case Icode_NAME_INC_DEC;
-
+                                    
                                 case Icode_NAME_INC_DEC:
                                     stack [++stackTop] = ScriptRuntime.nameIncrDecr (frame.scope, stringReg, iCode [frame.pc]);
                                     ++frame.pc;
 
                                     goto Loop;
-                                    goto case Icode_SETVAR1;
-
+                                    
                                 case Icode_SETVAR1:
                                     indexReg = iCode [frame.pc++];
                                     // fallthrough
@@ -3626,8 +3591,7 @@ namespace EcmaScript.NET
                                     }
 
                                     goto Loop;
-                                    goto case Icode_GETVAR1;
-
+                                    
                                 case Icode_GETVAR1:
                                     indexReg = iCode [frame.pc++];
                                     // fallthrough
@@ -3645,8 +3609,7 @@ namespace EcmaScript.NET
                                     }
 
                                     goto Loop;
-                                    goto case Icode_VAR_INC_DEC;
-
+                                    
                                 case Icode_VAR_INC_DEC: {
                                         // indexReg : varindex
                                         ++stackTop;
@@ -3681,8 +3644,7 @@ namespace EcmaScript.NET
                                     sDbl [stackTop] = 0;
 
                                     goto Loop;
-                                    goto case Icode_ONE;
-
+                                    
                                 case Icode_ONE:
                                     ++stackTop;
                                     stack [stackTop] = DBL_MRK;
@@ -3714,14 +3676,12 @@ namespace EcmaScript.NET
                                     stack [++stackTop] = true;
 
                                     goto Loop;
-                                    goto case Icode_UNDEF;
-
+                                    
                                 case Icode_UNDEF:
                                     stack [++stackTop] = undefined;
 
                                     goto Loop;
-                                    goto case Token.ENTERWITH;
-
+                                    
                                 case Token.ENTERWITH: {
                                         object lhs = stack [stackTop];
                                         if (lhs == DBL_MRK)
@@ -3882,8 +3842,7 @@ namespace EcmaScript.NET
                                     stack [++stackTop] = frame.scriptRegExps [indexReg];
 
                                     goto Loop;
-                                    goto case Icode_LITERAL_NEW;
-
+                                    
                                 case Icode_LITERAL_NEW:
                                     // indexReg: number of values in the literal
                                     ++stackTop;
@@ -3903,7 +3862,6 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.ARRAYLIT;
 
                                 case Token.ARRAYLIT:
                                 case Icode_SPARE_ARRAYLIT:
@@ -3960,8 +3918,7 @@ namespace EcmaScript.NET
 
                                         goto Loop;
                                     }
-                                    goto case Token.ESCXMLATTR;
-
+                                    
                                 case Token.ESCXMLATTR: {
                                         object value = stack [stackTop];
                                         if (value != DBL_MRK) {
@@ -4271,7 +4228,7 @@ namespace EcmaScript.NET
 
             // Do cleanups/restorations before the final return or throw
 
-            if (cx.previousInterpreterInvocations != null && cx.previousInterpreterInvocations.size () != 0) {
+            if (cx.previousInterpreterInvocations != null && cx.previousInterpreterInvocations.GetSize () != 0) {
                 cx.lastInterpreterFrame = cx.previousInterpreterInvocations.pop ();
             }
             else {

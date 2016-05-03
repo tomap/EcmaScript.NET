@@ -21,6 +21,6 @@ using System.Security;
 
 [assembly: AssemblyDescription("Modified version of the EcmaScript.NET assembly.")]
 
-[assembly: CLSCompliant(false)]
+[assembly: CLSCompliant(true)]
 [assembly: AllowPartiallyTrustedCallers]
 [assembly: AssemblyFileVersion("1.0.1.0")]

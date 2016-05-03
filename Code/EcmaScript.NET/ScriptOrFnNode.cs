@@ -88,7 +88,7 @@ namespace EcmaScript.NET
                 if (functions == null) {
                     return 0;
                 }
-                return functions.size ();
+                return functions.GetSize ();
             }
 
         }
@@ -99,7 +99,7 @@ namespace EcmaScript.NET
                 if (regexps == null) {
                     return 0;
                 }
-                return regexps.size () / 2;
+                return regexps.GetSize () / 2;
             }
 
         }
@@ -115,7 +115,7 @@ namespace EcmaScript.NET
         {
             get
             {
-                return itsVariables.size ();
+                return itsVariables.GetSize ();
             }
 
         }
@@ -123,7 +123,7 @@ namespace EcmaScript.NET
         {
             get
             {
-                int N = itsVariables.size ();
+                int N = itsVariables.GetSize ();
                 if (N == 0) {
                     return ScriptRuntime.EmptyStrings;
                 }
@@ -176,7 +176,7 @@ namespace EcmaScript.NET
                 functions = new ObjArray ();
             }
             functions.add (fnNode);
-            return functions.size () - 1;
+            return functions.GetSize () - 1;
         }
 
         public string getRegexpString (int index)
@@ -198,7 +198,7 @@ namespace EcmaScript.NET
             }
             regexps.add (str);
             regexps.add (flags);
-            return regexps.size () / 2 - 1;
+            return regexps.GetSize () / 2 - 1;
         }
 
         public bool hasParamOrVar (string name)
@@ -219,7 +219,7 @@ namespace EcmaScript.NET
         public void addParam (string name)
         {
             // Check addparam is not called after addLocal
-            if (varStart != itsVariables.size ())
+            if (varStart != itsVariables.GetSize ())
                 Context.CodeBug ();
             // Allow non-unique parameter names: use the last occurrence
             int index = varStart++;
@@ -234,7 +234,7 @@ namespace EcmaScript.NET
                 // There's already a variable or parameter with this name.
                 return;
             }
-            int index = itsVariables.size ();
+            int index = itsVariables.GetSize ();
             itsVariables.add (name);
             itsVariableNames.put (name, index);
         }

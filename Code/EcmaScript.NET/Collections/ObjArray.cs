@@ -71,7 +71,7 @@ namespace EcmaScript.NET.Collections
             zealed = true;
         }
 
-        public int size ()
+        public int GetSize ()
         {
             return m_Size;
         }

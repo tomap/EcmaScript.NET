@@ -390,7 +390,7 @@ namespace EcmaScript.NET
             throw ScriptRuntime.TypeErrorById ("msg.incompat.call", f.FunctionName);
         }
 
-        protected internal virtual IScriptable GetClassPrototype()
+        protected internal virtual IScriptable GetProtectedClassPrototype()
         {
             object protoVal = PrototypeProperty;
             if (protoVal is IScriptable) {
@@ -423,7 +423,7 @@ namespace EcmaScript.NET
                 }
                 result = (IScriptable)val;
                 if (result.GetPrototype () == null) {
-                    result.SetPrototype (GetClassPrototype ());
+                    result.SetPrototype (GetProtectedClassPrototype ());
                 }
                 if (result.ParentScope == null) {
                     IScriptable parent = ParentScope;
@@ -447,7 +447,7 @@ namespace EcmaScript.NET
         public virtual IScriptable CreateObject (Context cx, IScriptable scope)
         {
             IScriptable newInstance = new BuiltinObject ();
-            newInstance.SetPrototype (GetClassPrototype ());
+            newInstance.SetPrototype (GetProtectedClassPrototype ());
             newInstance.ParentScope = ParentScope;
             return newInstance;
         }

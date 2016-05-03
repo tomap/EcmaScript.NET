@@ -322,7 +322,7 @@ namespace EcmaScript.NET
                     string tokenname = null;
                     if (Token.printNames)
                     {
-                        tokenname = Token.name(source[i]);
+                        tokenname = Token.GetName(source[i]);
                     }
                     if (tokenname == null)
                     {

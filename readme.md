@@ -8,3 +8,5 @@ Here are the main differences:
 * included changes from :
   * Vladimir Svyatski https://github.com/vsvyatski/EcmaScript.NET
   * James code-for-coffee https://github.com/code-for-coffee/EcmaScript.NET
+
+License is New BSD. See LICENSE file

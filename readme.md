@@ -8,5 +8,5 @@ Here are the main differences:
 * included changes from :
   * Vladimir Svyatski https://github.com/vsvyatski/EcmaScript.NET
   * James code-for-coffee https://github.com/code-for-coffee/EcmaScript.NET
-
+  * Philipp Kreil https://github.com/pk910/EcmaScript.NET/tree/es6-catch-fix
 License is New BSD. See LICENSE file
